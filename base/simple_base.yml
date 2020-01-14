@@ -1,9 +1,96 @@
+# HTTP 端口
 port: 7890
+
+# SOCKS5 端口
 socks-port: 7891
-allow-lan: true
+
+# 是否允许局域网其他设备连接
+allow-lan: false
+
+# Only applicable when setting allow-lan to true
+# "*": bind all IP addresses
+# 192.168.122.11: bind a single IPv4 address
+# "[aaaa::a8aa:ff:fe09:57d8]": bind a single IPv6 address
+# bind-address: "*"
+
+# Rule / Global/ Direct (默认为 Rule 模式)
 mode: Rule
+
+# 日常级别
 log-level: info
+
+# 外部控制器 访问端口
 external-controller: 127.0.0.1:9090
+
+
+# RESTful API 的口令 (可选)
+# secret: ""
+
+# authentication of local SOCKS5/HTTP(S) server
+# authentication:
+#  - "user1:pass1"
+#  - "user2:pass2"
+
+
+# 自定义 DNS
+# TEST DNS Crypt  20200114
+dns:
+  enable: true
+  ipv6: false
+  listen: 0.0.0.0:53
+  #enhanced-mode: redir-host
+  nameserver:
+      # 5555 -> simple dns crypto 
+    - 127.0.0.1:5555
+    - 'tls://1.1.1.1:853'  
+    - 'tls://dns.rubyfish.cn:853'
+  fallback:
+    - 'tls://1.1.1.1:853'
+    - 'tcp://1.1.1.1:53'
+    - 'tcp://208.67.222.222:443'
+    - 'tls://dns.google'
+
 Proxy: ~
+# 更多协议配置示例：https://github.com/Dreamacro/clash/blob/master/README.md
+
+
+# 代理组策略
 Proxy Group: ~
+
+
+# url-test 通过指定的 URL 测试并选择延迟最低的节点
+#- name: "UrlTest"
+#  type: url-test
+#  proxies:
+#    - "1"
+#    - "2"
+#    - "3"
+#    - "4"
+#  url: 'http://www.gstatic.com/generate_204'
+#  interval: 300
+
+# fallback 通过指定的 URL 测试并选择可用的节点，当 1 故障不可用时自动切换到 2 以此类推
+# - name: "Fallback"
+#   type: fallback
+#   proxies:
+#     - "1"
+#     - "2"
+#     - "3"
+#     - "4"
+#   url: 'http://www.gstatic.com/generate_204'
+#   interval: 300
+
+# load-balance: 负载均衡
+# - name: "LoadBalance"
+#   type: load-balance
+#   proxies:
+#     - "1"
+#     - "2"
+#     - "3"
+#     - "4"
+#   url: 'http://www.gstatic.com/generate_204'
+#   interval: 300
+
+# 规则( 根据 pref.ini 中 surge_ruleset 和 对应的 ip-list 来生成规则)
 Rule: ~
+
